@@ -63,6 +63,7 @@ function simulateWeather() {
 
         // Mostrar todas las simulaciones en la interfaz
         displayWeatherHistory();
+    }
 }
 
 function displayWeatherHistory() {
