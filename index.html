@@ -5,15 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clima Simulator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"> defer</script>
+    
 </head>
 <body>
     <div class="controls">
         <label for="temperature">Temperatura:</label>
         <input type="range" id="temperature" min="-10" max="40" value="20">
+
         <label for="humidity">Humedad:</label>
         <input type="range" id="humidity" min="0" max="100" value="50">
+
         <label for="wind">Velocidad del viento:</label>
         <input type="range" id="wind" min="0" max="50" value="10">
+
+        <label for="tempPreference">Preferencia de Temperatura:</label>
+        <select id="tempPreference">
+            <option value="cold">Frío</option>
+            <option value="neutral" selected>Neutral</option>
+            <option value="hot">Caluroso</option>
+        </select>
+
+        <label for="humidityPreference">Preferencia de Humedad:</label>
+        <select id="humidityPreference">
+            <option value="dry">Seco</option>
+            <option value="neutral" selected>Neutral</option>
+            <option value="humid">Húmedo</option>
+        </select>
+
+        <label for="windPreference">Preferencia de Viento:</label>
+        <select id="windPreference">
+            <option value="low">Bajo</option>
+            <option value="neutral" selected>Neutral</option>
+            <option value="high">Alto</option>
+        </select>
+
         <button onclick="simulateWeather()">Simular</button>
     </div>
 
@@ -21,6 +47,6 @@
         <!-- Aquí se mostrará el historial de simulaciones -->
     </div>
 
-    <script src="script.js"></script>
+    
 </body>
 </html>
