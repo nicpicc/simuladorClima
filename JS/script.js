@@ -1,4 +1,5 @@
-const fs = require('fs'); // Importar módulo 'fs' para operaciones de archivo en Node.js
+// Importar módulo 'fs' para operaciones de archivo en Node.js
+const fs = require('fs');
 
 // Ruta al archivo JSON donde se almacenarán los datos
 const jsonFilePath = './data/weather_history.json';
@@ -105,6 +106,45 @@ function processSimulation(simulation) {
     };
 }
 
+// Función para generar una imagen animada (GIF) de una simulación de clima
+function generateAnimatedImage(simulation) {
+    const gif = new GIF({
+        workers: 2,
+        quality: 10
+    });
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Configurar dimensiones del canvas (ajusta según tus necesidades)
+    canvas.width = 200;
+    canvas.height = 200;
+
+    // Dibujar simulación en el canvas (puedes adaptar esto según tus datos)
+    ctx.fillStyle = 'lightblue';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Dibujar detalles de la simulación
+    ctx.font = '16px Arial';
+    ctx.fillStyle = 'black';
+    ctx.fillText(`Temp: ${simulation.temperature}°C`, 10, 30);
+    ctx.fillText(`Humidity: ${simulation.humidity}%`, 10, 60);
+    ctx.fillText(`Wind: ${simulation.wind} km/h`, 10, 90);
+    ctx.fillText(`Type: ${simulation.type}`, 10, 120);
+
+    // Agregar fotograma al GIF
+    gif.addFrame(canvas, { delay: 1000 }); // 1000 ms (1 segundo) de delay entre cada fotograma
+
+    // Renderizar y mostrar el GIF en la interfaz
+    gif.on('finished', function(blob) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(blob);
+        document.body.appendChild(img);
+    });
+
+    gif.render();
+}
+
 // Función para simular el clima y guardar el historial actualizado en el archivo JSON
 function simulateWeather() {
     // Realizar simulaciones de clima...
@@ -112,6 +152,11 @@ function simulateWeather() {
 
     // Guardar el historial de simulaciones en el archivo JSON después de cada simulación
     saveWeatherHistoryToFile();
+
+    // Mostrar imágenes animadas de cada simulación
+    weatherHistory.forEach(simulation => {
+        generateAnimatedImage(simulation);
+    });
 
     // Mostrar las simulaciones en la interfaz (si es necesario)
     displayWeatherHistory();
